@@ -2,7 +2,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { HeroCanvas } from "@/components/visuals/hero-canvas";
-
+import { Send } from "lucide-react";
 export function Hero() {
   return (
     <section className="pb-14 pt-10">
@@ -22,33 +22,39 @@ export function Hero() {
             </div>
 
             <div className="lg:col-span-4 lg:pb-1">
-  <div className="mb-6">
-    <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--fg-38)]">
-      Get the sovereign AI brief
-    </p>
+ <div className="mb-6 mr-0 sm:mr-6">
+  <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--fg-38)]">
+    Get the sovereign AI brief
+  </p>
 
-    <form className="flex flex-col gap-2 sm:flex-row lg:flex-col xl:flex-row">
-      <label htmlFor="hero-email" className="sr-only">
-        Work email
-      </label>
+  <form>
+    <label htmlFor="hero-email" className="sr-only">
+      Work email
+    </label>
 
+    <div className="relative">
       <input
         id="hero-email"
         type="email"
         name="email"
         placeholder="Work email"
         autoComplete="email"
-        className="h-11 min-w-0 flex-1 rounded-[9px] border border-[var(--border-medium)] bg-white px-3.5 text-[13px] text-fg outline-none transition-colors placeholder:text-[var(--fg-38)] focus:border-primary/40"
+        className="h-12 w-full rounded-[11px] border border-[var(--border-medium)] bg-white pl-4 pr-14 text-[14px] text-fg outline-none transition-[border-color,box-shadow] placeholder:text-[var(--fg-38)] focus:border-primary/40 focus:shadow-[0_0_0_3px_rgba(107,76,76,.06)]"
       />
 
       <button
         type="submit"
-        className="inline-flex h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-[9px] bg-primary-deep px-4 text-[12px] font-medium text-white transition-colors hover:bg-primary"
+        aria-label="Submit email"
+        className="absolute right-1.5 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-[8px] bg-primary-deep text-white transition-[background-color,transform] hover:bg-primary active:scale-[0.96]"
       >
-        Get updates
+        <Send
+          className="h-4 w-4"
+          strokeWidth={1.7}
+        />
       </button>
-    </form>
-  </div>
+    </div>
+  </form>
+</div>
 
   <p className="max-w-[31rem] text-[15px] leading-6 text-[var(--fg-55)] sm:text-base sm:leading-7">
     Your agents, your models, your hardware, your governance. The full-stack
