@@ -7,8 +7,8 @@ import { useState } from "react";
 
 const links = [
   ["Why sovereign", "#why-sovereign"],
-  ["Ownership", "#ownership"],
   ["Stack", "#stack"],
+  ["Optimus", "#optimus"],
   ["Governance", "#governance"],
   ["In production", "#customers"],
 ] as const;

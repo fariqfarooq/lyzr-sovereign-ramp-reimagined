@@ -4,23 +4,18 @@ import { Reveal } from "@/components/motion/reveal";
 import { StackCardVisual } from "@/components/visuals/stack-card-visual";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { stackCards } from "@/lib/content";
 
 export function PlatformGrid() {
   return (
     <section id="platform" className="section-space scroll-mt-24 bg-parch">
       <Container>
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-primary">The full stack</p>
-            <h2 className="mt-4 max-w-[13ch] text-balance text-[clamp(2.6rem,4.8vw,4.9rem)] font-normal leading-[0.98] tracking-[-0.055em]">
-              What’s live today. <span className="text-[var(--fg-38)]">What’s coming next</span>
-            </h2>
-          </div>
-          <div className="lg:col-span-4 lg:flex lg:justify-end">
-            <ButtonLink href="https://www.lyzr.ai/book-demo" tone="primary">Switch in days, not months</ButtonLink>
-          </div>
-        </div>
+        <SectionHeading
+          eyebrow="The full stack"
+          title={<>What’s live today. <span className="text-[var(--fg-38)]">What’s coming next</span></>}
+          action={<ButtonLink href="https://www.lyzr.ai/book-demo" tone="primary">Switch in days, not months</ButtonLink>}
+        />
 
         <div className="mt-12 grid gap-3 lg:grid-cols-12">
           {stackCards.map((card, index) => {

@@ -1,13 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Container } from "@/components/ui/container";
+import Image from "next/image";
 
 const navLinks = [
   ["Why sovereign", "#why-sovereign"],
-  ["Ownership", "#ownership"],
   ["Stack", "#stack"],
+  ["Optimus", "#optimus"],
   ["Governance", "#governance"],
   ["In production", "#customers"],
 ] as const;
@@ -19,7 +19,7 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label="Lyzr Sovereign AI home"
-          className="flex items-center"
+          className="flex items-center gap-2.5 text-sm font-semibold tracking-[-0.03em]"
         >
           <Image
             src="/logo-lyzr-dark.webp"
@@ -37,7 +37,7 @@ export function SiteHeader() {
               <li key={href}>
                 <Link
                   href={href}
-                  className="text-[13px] text-[var(--fg-55)] transition-colors duration-200 hover:text-fg"
+                  className="text-[13px] text-[var(--fg-55)] transition-colors hover:text-fg"
                 >
                   {label}
                 </Link>
@@ -49,14 +49,13 @@ export function SiteHeader() {
         <div className="hidden items-center gap-2 lg:flex">
           <Link
             href="https://studio.lyzr.ai/"
-            className="inline-flex min-h-10 items-center whitespace-nowrap px-3 text-[13px] font-medium transition-colors duration-200 hover:text-primary"
+            className="inline-flex min-h-10 items-center px-3 text-[13px] font-medium transition-colors hover:text-primary"
           >
             Agent Studio
           </Link>
-
           <Link
             href="https://www.lyzr.ai/book-demo"
-            className="inline-flex min-h-10 items-center justify-center whitespace-nowrap rounded-[8px] bg-primary-deep px-4 text-[13px] font-medium text-white transition-colors duration-200 hover:bg-primary"
+            className="inline-flex min-h-10 items-center rounded-[8px] bg-primary-deep px-4 text-[13px] font-medium text-white transition-colors hover:bg-primary"
           >
             Talk to Us
           </Link>

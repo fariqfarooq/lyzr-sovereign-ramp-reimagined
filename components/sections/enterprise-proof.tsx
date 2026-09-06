@@ -60,36 +60,58 @@ export function EnterpriseProof() {
           </div>
         </Reveal>
 
-        <div className="mt-6 grid gap-3 lg:mt-8 lg:auto-rows-fr lg:grid-cols-3">
-          {customerStories.map((story, index) => (
-            <Reveal key={story.company} delay={index * 0.055} className="h-full">
-              <article className="group flex h-full min-h-[420px] flex-col lg:min-h-[500px] rounded-[16px] border border-[var(--border-medium)] bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/25 hover:shadow-[0_18px_45px_rgba(42,31,26,.055)] sm:p-7">
-                <div className="flex items-center justify-between">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">
-                    {story.company}
+        <div className="mt-6 grid gap-3 lg:mt-8 lg:grid-cols-12 lg:grid-rows-2">
+          {customerStories.map((story, index) => {
+            const featured = index === 0;
+
+            return (
+              <Reveal
+                key={story.company}
+                delay={index * 0.055}
+                className={featured ? "lg:col-span-7 lg:row-span-2" : "lg:col-span-5"}
+              >
+                <article
+                  className={`group flex h-full flex-col rounded-[16px] border border-[var(--border-medium)] bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/25 hover:shadow-[0_18px_45px_rgba(42,31,26,.055)] sm:p-7 ${
+                    featured ? "min-h-[460px] lg:min-h-[580px]" : "min-h-[300px] lg:min-h-[286px]"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">
+                      {story.company}
+                    </p>
+                    <span className="grid h-8 w-8 place-items-center rounded-[8px] border border-[var(--border-medium)] transition-colors group-hover:border-primary/30 group-hover:bg-cream">
+                      <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.6} />
+                    </span>
+                  </div>
+
+                  <h3
+                    className={`max-w-[14ch] font-normal leading-[1.01] tracking-[-0.05em] ${
+                      featured ? "mt-14 text-[clamp(2.35rem,4vw,4.15rem)]" : "mt-8 text-[28px]"
+                    }`}
+                  >
+                    {story.title}
+                  </h3>
+
+                  <p
+                    className={`${featured ? "mt-6 max-w-xl text-[14px] leading-6" : "mt-4 max-w-md text-[12px] leading-5"} text-[var(--fg-55)]`}
+                  >
+                    {story.body}
                   </p>
-                  <span className="grid h-8 w-8 place-items-center rounded-[8px] border border-[var(--border-medium)] transition-colors group-hover:border-primary/30 group-hover:bg-cream">
-                    <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.6} />
-                  </span>
-                </div>
-                <h3 className="mt-12 max-w-[13ch] text-[32px] font-normal leading-[1.01] tracking-[-0.05em]">
-                  {story.title}
-                </h3>
-                <p className="mt-5 max-w-md text-[13px] leading-6 text-[var(--fg-55)]">
-                  {story.body}
-                </p>
-                <dl className="mt-auto grid grid-cols-2 gap-4 border-t border-[var(--border-soft)] pt-6">
-                  {story.metrics.map(([value, label]) => (
-                    <div key={label}>
-                      <dt className="text-[30px] font-medium tracking-[-0.045em]">{value}</dt>
-                      <dd className="mt-1 text-[10px] leading-4 text-[var(--fg-38)]">{label}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </article>
-            </Reveal>
-          ))}
+
+                  <dl className={`mt-auto grid grid-cols-2 gap-4 border-t border-[var(--border-soft)] ${featured ? "pt-7" : "pt-5"}`}>
+                    {story.metrics.map(([value, label]) => (
+                      <div key={label}>
+                        <dt className={`${featured ? "text-[36px]" : "text-[28px]"} font-medium tracking-[-0.045em]`}>{value}</dt>
+                        <dd className="mt-1 text-[10px] leading-4 text-[var(--fg-38)]">{label}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
+
       </Container>
     </section>
   );

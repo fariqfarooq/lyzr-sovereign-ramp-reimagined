@@ -1,44 +1,71 @@
+import type { ReactNode } from "react";
+
 type SectionHeadingProps = {
   eyebrow?: string;
-  title: string;
-  body?: string;
-  align?: "left" | "center";
+  title: ReactNode;
+  body?: ReactNode;
+  action?: ReactNode;
+  tone?: "light" | "dark";
+  as?: "h2" | "h3";
   className?: string;
+  titleClassName?: string;
 };
 
 export function SectionHeading({
   eyebrow,
   title,
   body,
-  align = "center",
+  action,
+  tone = "light",
+  as = "h2",
   className = "",
+  titleClassName = "",
 }: SectionHeadingProps) {
-  const centered = align === "center";
+  const Heading = as;
+  const dark = tone === "dark";
 
   return (
-    <header className={`${centered ? "mx-auto text-center" : ""} ${className}`}>
-      {eyebrow ? (
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary sm:text-[11px]">
-          {eyebrow}
-        </p>
-      ) : null}
+    <header
+      className={`grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-x-10 ${className}`}
+    >
+      {/* Eyebrow + heading */}
+      <div className="lg:col-span-7">
+        {eyebrow ? (
+          <p
+            className={`mb-5 font-mono text-[10px] uppercase tracking-[0.16em] sm:text-[11px] ${
+              dark ? "text-white/45" : "text-primary"
+            }`}
+          >
+            {eyebrow}
+          </p>
+        ) : null}
 
-      <h2
-        className={`mt-4 text-balance text-[clamp(2.3rem,4.4vw,4.6rem)] font-normal leading-[0.99] tracking-[-0.052em] ${
-          centered ? "mx-auto max-w-[17ch]" : "max-w-[14ch]"
-        }`}
-      >
-        {title}
-      </h2>
-
-      {body ? (
-        <p
-          className={`mt-5 text-[14px] leading-6 text-[var(--fg-55)] sm:text-[15px] sm:leading-7 ${
-            centered ? "mx-auto max-w-[42rem]" : "max-w-xl"
-          }`}
+        <Heading
+          className={`max-w-[14ch] text-balance text-[clamp(2.4rem,4vw,4.35rem)] font-normal leading-[1] tracking-[-0.05em] ${titleClassName}`}
         >
-          {body}
-        </p>
+          {title}
+        </Heading>
+      </div>
+
+      {/* Description + optional CTA */}
+      {body || action ? (
+        <div className="lg:col-span-4 lg:col-start-9 lg:pt-8">
+          {body ? (
+            <div
+              className={`max-w-[30rem] text-[14px] leading-6 sm:text-[15px] sm:leading-7 ${
+                dark ? "text-white/58" : "text-[var(--fg-55)]"
+              }`}
+            >
+              {body}
+            </div>
+          ) : null}
+
+          {action ? (
+            <div className={body ? "mt-6" : ""}>
+              {action}
+            </div>
+          ) : null}
+        </div>
       ) : null}
     </header>
   );

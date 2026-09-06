@@ -14,9 +14,12 @@ import {
   Sparkles,
   Workflow,
 } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
 
+import { ProductCanvasOverlay } from "@/components/canvas/product-canvas-overlay";
 import { Container } from "@/components/ui/container";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { type DemoStep, useDemoSequence } from "@/hooks/use-demo-sequence";
 import { ownershipSteps } from "@/lib/content";
 
 const details = [
@@ -211,44 +214,84 @@ function OptimusPreview() {
 
 const previews = [GovernPreview, NitroPreview, ModelsPreview, OptimusPreview] as const;
 
+type OwnershipDemoState = {
+  index: number;
+  clicking: boolean;
+};
+
+const ownershipDemoSequence: readonly DemoStep<OwnershipDemoState>[] = [
+  { at: 600, state: { index: 0, clicking: false } },
+  { at: 1250, state: { index: 0, clicking: true } },
+  { at: 1500, state: { index: 0, clicking: false } },
+  { at: 2850, state: { index: 1, clicking: false } },
+  { at: 3500, state: { index: 1, clicking: true } },
+  { at: 3750, state: { index: 1, clicking: false } },
+  { at: 5100, state: { index: 2, clicking: false } },
+  { at: 5750, state: { index: 2, clicking: true } },
+  { at: 6000, state: { index: 2, clicking: false } },
+  { at: 7350, state: { index: 3, clicking: false } },
+  { at: 8000, state: { index: 3, clicking: true } },
+  { at: 8250, state: { index: 3, clicking: false } },
+];
+
+const ownershipCursorX = [12, 37, 62, 87] as const;
+
+
 export function OwnershipPath() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [activeStep, setActiveStep] = useState(0);
+  const [userInteracted, setUserInteracted] = useState(false);
   const tabId = useId();
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const reduceMotion = useReducedMotion();
-  const ActivePreview = previews[activeStep];
-  const active = ownershipSteps[activeStep];
-  const activeDetail = details[activeStep];
+  const inView = useInView(sectionRef, { once: true, amount: 0.28 });
+
+  const demoState = useDemoSequence<OwnershipDemoState>(
+    inView && !reduceMotion && !userInteracted,
+    { index: 0, clicking: false },
+    ownershipDemoSequence,
+  );
+
+  const displayStep = userInteracted ? activeStep : demoState.index;
+  const ActivePreview = previews[displayStep];
+  const active = ownershipSteps[displayStep];
+  const activeDetail = details[displayStep];
+
+  function selectStep(index: number) {
+    setUserInteracted(true);
+    setActiveStep(index);
+  }
 
   function selectFromKeyboard(index: number, direction: 1 | -1) {
     const next = (index + direction + ownershipSteps.length) % ownershipSteps.length;
-    setActiveStep(next);
+    selectStep(next);
     tabRefs.current[next]?.focus();
   }
 
   return (
-    <section id="ownership" className="scroll-mt-24 bg-primary-deep py-20 text-white sm:py-24 lg:py-28">
+    <section ref={sectionRef} id="ownership" className="scroll-mt-24 bg-primary-deep py-20 text-white sm:py-24 lg:py-28">
       <Container>
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/48 sm:text-[11px]">How Lyzr gets you there</p>
-            <h2 className="mt-4 max-w-[13ch] text-balance text-[clamp(2.6rem,4.7vw,4.9rem)] font-normal leading-[0.98] tracking-[-0.054em]">
-              From where your AI is today to owning all of it
-            </h2>
-          </div>
-          <p className="max-w-xl text-[14px] leading-6 text-white/58 sm:text-[15px] sm:leading-7 lg:col-span-4 lg:col-start-9">
-            Sovereign AI is not a migration. It is a progression. Select each step to see what changes as ownership moves deeper into the stack.
-          </p>
-        </div>
+        <SectionHeading
+          eyebrow="How Lyzr gets you there"
+          title="From where your AI is today to owning all of it"
+          body="Sovereign AI is not a migration. It is a progression. Select each step to see what changes as ownership moves deeper into the stack."
+          tone="dark"
+        />
 
-        <div className="mt-10 border-b border-white/14 sm:mt-12 lg:mt-14">
+        <div className="relative mt-10 border-b border-white/14 sm:mt-12 lg:mt-14">
+          <ProductCanvasOverlay
+            target={{ x: ownershipCursorX[displayStep], y: 50 }}
+            clicking={!userInteracted && demoState.clicking}
+            active={inView && !reduceMotion && !userInteracted}
+            className="hidden lg:block"
+          />
           <div
             role="tablist"
             aria-label="Path to sovereign AI"
             className="scrollbar-none -mb-px flex gap-8 overflow-x-auto sm:gap-10 lg:grid lg:grid-cols-4 lg:gap-0"
           >
             {ownershipSteps.map((step, index) => {
-              const selected = activeStep === index;
+              const selected = displayStep === index;
               return (
                 <button
                   key={step.index}
@@ -261,7 +304,7 @@ export function OwnershipPath() {
                   aria-selected={selected}
                   aria-controls={`${tabId}-panel`}
                   tabIndex={selected ? 0 : -1}
-                  onClick={() => setActiveStep(index)}
+                  onClick={() => selectStep(index)}
                   onKeyDown={(event) => {
                     if (event.key === "ArrowRight") {
                       event.preventDefault();
@@ -272,7 +315,7 @@ export function OwnershipPath() {
                       selectFromKeyboard(index, -1);
                     }
                   }}
-                  className="relative cursor-pointer min-w-[200px] pb-4 text-left lg:min-w-0 lg:px-3 lg:first:pl-0"
+                  className="relative min-w-[200px] pb-4 text-left lg:min-w-0 lg:px-3 lg:first:pl-0"
                 >
                   <span className={`font-mono text-[9px] transition-colors ${selected ? "text-white" : "text-white/32"}`}>{step.index}</span>
                   <span className={`mt-2 block whitespace-nowrap text-[14px] font-medium tracking-[-0.02em] transition-colors ${selected ? "text-white" : "text-white/48"}`}>{step.title}</span>
@@ -292,7 +335,7 @@ export function OwnershipPath() {
         <div
           id={`${tabId}-panel`}
           role="tabpanel"
-          aria-labelledby={`${tabId}-tab-${activeStep}`}
+          aria-labelledby={`${tabId}-tab-${displayStep}`}
           className="mt-7 overflow-hidden rounded-[18px] bg-white text-fg sm:mt-8"
         >
           <AnimatePresence mode="wait" initial={false}>

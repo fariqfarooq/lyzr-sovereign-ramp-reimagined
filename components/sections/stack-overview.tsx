@@ -2,6 +2,7 @@ import { Bot, Cpu, HardDrive, LockKeyhole, Sparkles } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const layers = [
   {
@@ -38,19 +39,11 @@ export function StackOverview() {
   return (
     <section id="stack" className="scroll-mt-24 py-20 sm:py-24 lg:py-28">
       <Container>
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary sm:text-[11px]">
-              The Lyzr Sovereign AI Stack
-            </p>
-            <h2 className="mt-4 max-w-[12ch] text-balance text-[clamp(2.55rem,4.7vw,4.85rem)] font-normal leading-[0.98] tracking-[-0.054em]">
-              What’s live. What’s coming next.
-            </h2>
-          </div>
-          <p className="max-w-xl text-[14px] leading-6 text-[var(--fg-55)] sm:text-[15px] sm:leading-7 lg:col-span-4 lg:col-start-9">
-            One stack from the agents your teams run to the machine they run on, with governance carried through every layer.
-          </p>
-        </div>
+        <SectionHeading
+          eyebrow="The Lyzr Sovereign AI Stack"
+          title="What’s live. What’s coming next."
+          body="One stack from the agents your teams run to the machine they run on, with governance carried through every layer."
+        />
 
         <div className="mt-10 overflow-hidden rounded-[18px] border border-[var(--border-medium)] bg-white sm:mt-12 lg:mt-14">
           <div className="grid lg:grid-cols-4">

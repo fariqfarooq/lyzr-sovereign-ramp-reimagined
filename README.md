@@ -1,17 +1,17 @@
-# Lyzr Sovereign AI — homepage reimagination
+# Lyzr Sovereign AI — Ramp-inspired reimagination
 
-A production-oriented Next.js take-home that keeps Lyzr's Sovereign AI story while borrowing the strongest principles from Ramp's marketing design: editorial typography, deliberate whitespace, product-led visuals and motion that explains state.
+A production-minded homepage reimagination of Lyzr Sovereign AI using Lyzr's source content.
 
 ## Stack
 
-- Next.js 16.3.3 / App Router
+- Next.js 16.3.3 (App Router)
 - React 19
 - TypeScript
 - Tailwind CSS v4
-- Motion 13
-- Lucide React
+- Motion for React
+- Canvas 2D for lightweight cursor/click choreography
 
-## Run locally
+## Run
 
 ```bash
 npm install
@@ -24,28 +24,28 @@ Before sharing:
 npm run check
 ```
 
-`check` runs lint, TypeScript and a production build.
+## Current page structure
 
-## Current design decisions
+- Hero with product-run choreography
+- Production metrics and enterprise proof
+- Sovereign AI stack overview
+- Why Sovereign AI
+- Four-step ownership progression
+- Existing-framework/control-plane story
+- Full-stack product grid
+- Optimus scale chooser and Max specifications
+- Governance product workspace
+- Governance capability matrix
+- Enterprise production stories
+- Leader testimonials
+- Analyst/security/compliance proof
+- Resource library
+- Founder statement
+- Final CTA
+- Expanded footer
 
-- White-first theme using Lyzr's brown / rose palette as punctuation rather than background decoration.
-- Server Components by default; client components are limited to interaction and motion islands.
-- The early stack section is intentionally structural rather than diagrammatic. No arbitrary connector lines.
-- The "How Lyzr gets you there" section uses real accessible tabs, matching the interaction implied by Lyzr's live Sovereign AI page.
-- Tab panels use purpose-built product surfaces for Control Plane, Nitro, models and Optimus instead of generic flowcharts.
-- The three business-reason cards use equal-height desktop rows and fixed internal title/body rhythm so metrics align.
-- All animation respects reduced-motion preferences.
-- Client / ecosystem SVGs live in `public/clients`.
 
-## Responsive checks before submission
 
-Manually verify at 320, 375, 430, 768, 1024, 1280, 1440 and 1920 px. Pay particular attention to:
+Canvas is only used as a lightweight overlay for cursor/click choreography. Product UI remains real DOM for responsiveness, accessibility and maintainability.
 
-- hero CTA wrapping
-- horizontal ownership tab scrolling
-- tab panel stacking
-- equal-height reason cards
-- 4-column stack collapsing to a readable linear layout
-- customer logo grid
 
-Run Lighthouse against the production build, not `next dev`.
