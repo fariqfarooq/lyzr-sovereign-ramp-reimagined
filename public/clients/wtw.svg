@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" role="img" aria-labelledby="title">
+  <title id="title">WTW</title>
+  <g fill="none" stroke="#2A1F1A" stroke-width="2.4" stroke-linecap="round">
+    <path d="M14 24c8-8 16-8 24 0s16 8 24 0"/>
+    <path d="M14 32c8-8 16-8 24 0s16 8 24 0" opacity=".6"/>
+  </g>
+  <text x="78" y="42" fill="#2A1F1A" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" letter-spacing="-1">WTW</text>
+</svg>

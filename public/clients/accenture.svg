@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" role="img" aria-labelledby="title">
+  <title id="title">Accenture</title>
+  <g fill="#2A1F1A">
+    <path d="M137 7l29 10-29 10v-7l18-3-18-3z"/>
+    <text x="8" y="48" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" letter-spacing="-1.7">accenture</text>
+  </g>
+</svg>
